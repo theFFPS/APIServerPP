@@ -1,0 +1,15 @@
+[
+    {
+        "title": "1",
+        "publisher": "SOMEONE",
+        "date": 0,
+        "text": "TEST ARTICLE",
+        "comments": [
+            {
+                "author": "SOMEONE",
+                "date": 0,
+                "text": "JUST TEST ARTICLE"
+            }
+        ]
+    } 
+]
