@@ -1,6 +1,8 @@
 # APIServer++
 ## Overview
-*Tested only on Linux!*
+**Tested only on Linux!**
+**Responses of this server sending only JSON data**
+**APIServer++** is a C++ library to create servers for API for some web-application.
 * [Requirements](https://github.com/theFFPS/APIServerPP#requirements)
 * [Building](https://github.com/theFFPS/APIServerPP#building)
 * [Installation](https://github.com/theFFPS/APIServerPP#installation)
