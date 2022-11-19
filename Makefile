@@ -1,5 +1,5 @@
 CXX            ?= g++
-CXX_OPTS       ?= -Wall -Werror -Wextra -g -fPIC -rdynamic -lm -ldl -I./inc -levent -Wno-cast-function-type
+CXX_OPTS       ?= -Wall -Werror -Wextra -g -fPIC -rdynamic -lm -ldl -I./inc -levent -Wno-cast-function-type -Wno-format-security
 LD_OPTS        ?= -shared
 SRC             = $(wildcard src/*.cc)
 OBJ             = $(patsubst src/%.cc, bin/%.o, $(SRC))
