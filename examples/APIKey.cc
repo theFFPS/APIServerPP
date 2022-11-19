@@ -2,7 +2,7 @@
 #include <APIServer++/Hash.hh>
 
 void Index(Request request) {
-    request.Send(request.url);
+    request.Send("\"" + request.url + "\"");
 }
 
 int main() {
