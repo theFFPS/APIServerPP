@@ -17,5 +17,7 @@ jobs:
       run: sudo apt-get install libevent-dev
     - name: make
       run: make
+    -name: install lib + hdrs
+      run: sudo make install
     - name: examples
       run: make -C examples
