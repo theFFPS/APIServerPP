@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: prepare
+      run: apt-get install libevent-dev
     - name: make
       run: make
     - name: examples
