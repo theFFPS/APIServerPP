@@ -1,5 +1,6 @@
 # APIServer++
 ## Overview
+**It will be modified soon (Removed libevent dependency)**
 **Tested only on Linux!**
 **Responses of this server sending only JSON data**
 **APIServer++** is a C++ library to create servers for API for some web-application.
