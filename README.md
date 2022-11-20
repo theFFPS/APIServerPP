@@ -61,4 +61,4 @@ int main() {
 }
 ```
 ## Documentation
-[Documentation](https://github.com/theFFPS/APIServerPP/)
+[Documentation](https://github.com/theFFPS/APIServerPP/wiki)
