@@ -14,6 +14,7 @@ class Request {
         string url;
         map<string, string> args;
         Request(evhttp_request *data, evbuffer *OutBuf);
+        Request();
         ~Request();
         list<string> split(string text, char del);
         void Send(string text);

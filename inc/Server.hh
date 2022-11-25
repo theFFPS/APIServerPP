@@ -5,9 +5,12 @@
 #include <iostream>
 #include <memory>
 #include <cstdint>
+#include <future>
 #include <map>
 using namespace std;
 map<string, void (*)(Request request)> handlers;
+map<string, int> operationsWithTimes;
+Request last;
 bool ADD_HANDLER(string path, void (*function)(Request request));
 class Listener {
     public:

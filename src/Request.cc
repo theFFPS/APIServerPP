@@ -10,6 +10,7 @@ list<string> Request::split(string text, char del) {
     }
     return out;
 }
+Request::Request() { this->args = {}, this->data = NULL, this->url = ""; }
 string Request::GetArg(string name) { for (auto val : args) if (val.first == name) return val.second; return ""; }
 Request::Request(evhttp_request *data, evbuffer *OutBuf) { 
     this->data = data; 
