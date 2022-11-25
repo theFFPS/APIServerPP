@@ -20,7 +20,7 @@ void _start_server(string address, int port, Listener *thi) {
             string key = request.GetArg("key");
             if (! listener.IsKey(key)) { request.SendNoCategory("{ \"success\":false, \"cause\":\"Wrong key provided!\" }"); return; }
             string thisUrl = formatAsCategoryWithArgs(request);
-            for (auto val : operationsWithTimes) { if (val.first == thisUrl) if (val.second < 3) { request.SendNoCategory("{ \"success\":false, \"cause\":\"Accessing fast!\" }"); return; } }
+            for (auto val : operationsWithTimes) { if (val.first == thisUrl) if (val.second < 3 && ! listener.IsAllowedForSpecialKey(request.url)) { request.SendNoCategory("{ \"success\":false, \"cause\":\"Accessing fast!\" }"); return; } }
             operationsWithTimes.insert({ formatAsCategoryWithArgs(request), 0 });
         }
         if (!OutBuf) return;
