@@ -17,11 +17,18 @@ class Listener {
         string address;
         int port;
         list<string> keys;
+        list<string> specialKeys;
+        list<string> allowedWithSpecialKeys;
         map<string, bool> toggle = {
-            { "use_api_key", true }
+            { "use_api_key", true },
+            { "use_special_keys_for_some_links_only", false }
         };
         Listener(string address, int port);
         ~Listener();
+        bool AllowForSpecialKey(string site);
+        bool IsAllowedForSpecialKey(string site);
+        bool AddSpecialKey(string key);
+        bool IsSpecialKey(string key);
         bool Toggle(string setting, bool value);
         bool Get(string setting);
         bool AddKey(string key);

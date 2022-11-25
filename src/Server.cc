@@ -18,9 +18,13 @@ void _start_server(string address, int port, Listener *thi) {
         if (listener.Get("use_api_key")) {
             if (request.args.size() == 0) { request.SendNoCategory("{ \"success\":false, \"cause\":\"Missing one or more arguments! [ key ]\" }"); return; }
             string key = request.GetArg("key");
-            if (! listener.IsKey(key)) { request.SendNoCategory("{ \"success\":false, \"cause\":\"Wrong key provided!\" }"); return; }
+            if (! listener.IsKey(key) && ! listener.IsSpecialKey(key)) { request.SendNoCategory("{ \"success\":false, \"cause\":\"Wrong key provided!\" }"); return; }
+            if (listener.IsAllowedForSpecialKey(request.url)) { 
+                if (listener.Get("use_special_keys_for_some_links_only") && ! listener.IsSpecialKey(key)) { request.SendNoCategory("{ \"success\":false, \"cause\":\"Wrong key provided!\" }"); return; }
+            }
+            if (! listener.IsAllowedForSpecialKey(request.url) && listener.IsSpecialKey(key)) { request.SendNoCategory("{ \"success\":false, \"cause\":\"Wrong key provided!\" }"); return; }
             string thisUrl = formatAsCategoryWithArgs(request);
-            for (auto val : operationsWithTimes) { if (val.first == thisUrl) if (val.second < 3) { request.SendNoCategory("{ \"success\":false, \"cause\":\"Accessing fast!\" }"); return; } }
+            for (auto val : operationsWithTimes) { if (val.first == thisUrl) if (val.second < 3 && ! listener.IsAllowedForSpecialKey(request.url)) { request.SendNoCategory("{ \"success\":false, \"cause\":\"Accessing fast!\" }"); return; } }
             operationsWithTimes.insert({ formatAsCategoryWithArgs(request), 0 });
         }
         if (!OutBuf) return;
@@ -63,7 +67,11 @@ bool Listener::Listen() {
     auto a3 = async(launch::async, _timers_updating);
     return true;
 }
+bool Listener::AllowForSpecialKey(string site) { allowedWithSpecialKeys.push_back(site); return true; }
+bool Listener::IsAllowedForSpecialKey(string site) { for (string kval : allowedWithSpecialKeys) if (kval == site) return true; return false; }
 bool Listener::AddKey(string key) { keys.push_back(key); return true; }
+bool Listener::AddSpecialKey(string key) { specialKeys.push_back(key); return true; }
+bool Listener::IsSpecialKey(string key) { for (string kval : specialKeys) if (kval == key) return true; return false; }
 bool Listener::IsKey(string key) { for (string kval : keys) if (kval == key) return true; return false; }
 bool Listener::Get(string setting) { for (auto val : toggle) if (val.first == setting) return val.second; return false; }
 bool Listener::Toggle(string setting, bool value) {
