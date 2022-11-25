@@ -1,4 +1,4 @@
-CXX                ?= g++
+CXX               ?= g++
 CXX_OPTS           ?= -Wall -Wextra -Werror -lAPIServer++
 all:
 	$(CXX) $(CXX_OPTS) APIKey.cc -o APIKey
